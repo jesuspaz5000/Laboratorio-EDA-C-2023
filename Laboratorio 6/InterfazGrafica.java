@@ -41,8 +41,7 @@ public class InterfazGrafica {
     private void replaceAction() {
         String wordToReplace = replaceField1.getText();
         String newWord = replaceField2.getText();
-        if(trie.eliminar(toCharacterArray(wordToReplace))){
-            trie.insertar(toCharacterArray(newWord));
+        if(trie.reemplazar(toCharacterArray(wordToReplace), toCharacterArray(newWord))) {
             outputArea.append("Reemplazo de " + wordToReplace + " por " + newWord + "\n");
         } else {
             outputArea.append("No se pudo reemplazar " + wordToReplace + " porque no se encuentra en el Trie.\n");
@@ -50,6 +49,7 @@ public class InterfazGrafica {
         replaceField1.setText("");
         replaceField2.setText("");
     }
+
     
     private JButton createButton(String text, ActionListener action) {
         JButton button = new JButton(text);

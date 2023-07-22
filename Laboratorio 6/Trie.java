@@ -34,22 +34,18 @@ public class Trie<T> {
         return nodo.isEsFinDePalabra();
     }
 
-    public boolean reemplazar(T[] palabra, Node<T> newNode) {
-        Node<T> nodo = raiz;
-        for (T key : palabra) {
-            int index = convertKeyToIndex(key);
-            if (nodo.getHijos()[index] == null) {
-                return false; // La palabra no existe en el Trie.
-            }
-            nodo = nodo.getHijos()[index];
+    public boolean reemplazar(T[] palabraOriginal, T[] nuevaPalabra) {
+        // Primero intenta eliminar la palabra original
+        if (eliminar(palabraOriginal)) {
+            // Si la eliminación fue exitosa, inserta la nueva palabra
+            insertar(nuevaPalabra);
+            return true;
+        } else {
+            // Si la eliminación no fue exitosa, no hagas nada y devuelve false
+            return false;
         }
-        // Reemplazamos el último nodo con el nuevo nodo.
-        for (int i = 0; i < numKeys; i++) {
-            nodo.getHijos()[i] = newNode.getHijos()[i];
-        }
-        nodo.setEsFinDePalabra(newNode.isEsFinDePalabra());
-        return true;
     }
+
     
     public boolean eliminar(T[] palabra) {
         return eliminar(raiz, palabra, 0) != null;
